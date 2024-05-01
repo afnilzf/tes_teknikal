@@ -15,9 +15,7 @@ const oauthMiddleware = async (req, res, next) => {
             throw new Error('Access token not found');
         }
 
-        // Token biasanya dikirim dalam format "Bearer {token}"
         const accessToken = authHeader.split(' ')[1];
-        // console.log(accessToken);
         if (!accessToken) {
             throw new Error('Invalid access token format');
         }
@@ -27,8 +25,6 @@ const oauthMiddleware = async (req, res, next) => {
         if (!token) {
             throw new Error('Invalid access token');
         }
-        // Sekrang Anda dapat menggunakan accessToken sesuai kebutuhan, misalnya, verifikasi atau validasi
-        // Lakukan verifikasi token atau apa pun yang diperlukan
 
         // Jika token valid, lanjutkan ke pengendali rute berikutnya
         return next();
@@ -39,7 +35,3 @@ const oauthMiddleware = async (req, res, next) => {
     }
 };
 module.exports = oauthMiddleware;
-// module.exports = {
-//     oauthMiddleware: oauthMiddleware,
-//     oauthServer: oauthServer
-// };

@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 
 
 const oauthServer = new OAuth2Server({
-    model: modelOauth, // Model OAuth2 yang Anda buat
+    model: modelOauth,
 });
 
 // Middleware express untuk mendapatkan informasi token akses dari permintaan

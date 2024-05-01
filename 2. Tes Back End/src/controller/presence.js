@@ -21,7 +21,6 @@ const insertNewPresence = async (req, res) => {
     const authHeader = req.headers['authorization'];
     const accessToken = authHeader.split(' ')[1];
     const { body } = req
-    // console.log(body)
     try {
         await presenceModel.insertNewPresence(body, accessToken)
         res.status(201).json({
