@@ -1,35 +1,43 @@
-function hitungJumlahKata(kalimat) {
-    // Pisahkan kalimat menjadi array kata-kata menggunakan spasi sebagai pemisah
-    var kataArray = kalimat.split(" ");
-
-    // Inisialisasi jumlah kata yang valid (tanpa karakter khusus)
-    var jumlahKataValid = 0;
-
-    // Iterasi melalui setiap kata dalam array
-    for (var i = 0; i < kataArray.length; i++) {
-        // Periksa apakah kata tidak mengandung karakter khusus
-        if (/^[a-zA-Z0-9,.?!]+$/i.test(kataArray[i])) {
-            jumlahKataValid++;
+function realWordCount(input) {
+    let arr = input.trim().split(" ");
+    let wordCounter = 0;
+    let textOnly = "abcdefghijklmnopqrstuvwxyz";
+    let lastText = "?,.!";
+    arr.forEach(data => {
+        if (checkText(data, "-")) {
+            let sameWord = data.split("-");
+            if (sameWord.length === 2 && sameWord[0].toLowerCase() === sameWord[1].toLowerCase()) {
+                wordCounter++;
+            }
+        } else {
+            let newWord = data.split("");
+            let len = newWord.length;
+            let alpCounter = 0;
+            if (checkText(lastText, newWord[len - 1])) {
+                alpCounter++;
+            }
+            newWord.forEach(newData => {
+                if (checkText(textOnly, newData.toLowerCase())) {
+                    alpCounter++;
+                }
+            });
+            if (len === alpCounter) {
+                wordCounter++;
+            }
         }
-
-    }
-
-    return jumlahKataValid;
+    });
+    return wordCounter;
 }
 
-// Contoh penggunaan
-var kalimat1 = "Saat meng*ecat tembok, Agung dib_antu oleh Raihan.";
-console.log("a. Input: " + kalimat1);
-console.log("Output: " + hitungJumlahKata(kalimat1));
+function checkText(baseText, textToCheck) {
+    return baseText.toLowerCase().includes(textToCheck.toLowerCase());
+}
 
-var kalimat2 = "Berapa u(mur minimal[ untuk !mengurus ktp?";
-console.log("b. Input: " + kalimat2);
-console.log("Output: " + hitungJumlahKata(kalimat2));
+let input1 = "Saat meng*ecat tembok, Agung dib_antu oleh Raihan.";
+console.log("output: " + realWordCount(input1));
 
-var kalimat3 = "Masing-masing anak mendap(atkan uang jajan ya=ng be&rbeda.";
-console.log("c. Input: " + kalimat3);
-console.log("Output: " + hitungJumlahKata(kalimat3));
+let input2 = "Berapa u(mur minimal[ untuk !mengurus ktp?";
+console.log("output: " + realWordCount(input2));
 
-var kalimat4 = "Kemarin Shopia per[gi ke mall.";
-console.log("d. Input: " + kalimat4);
-console.log("Output: " + hitungJumlahKata(kalimat4));
+let input3 = "Masing-masing anak mendap(atkan uang jajan ya=ng be&rbeda.";
+console.log("output: " + realWordCount(input3));
